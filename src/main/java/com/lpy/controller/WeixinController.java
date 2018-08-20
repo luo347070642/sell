@@ -14,7 +14,7 @@ import java.util.Map;
 
 /**
  * @Author: 罗鹏远
- * @description: 微信支付
+ * @description: 微信支付（通过微信api获取）
  * @Date: created in 21:10 2018/8/19
  */
 @RestController
