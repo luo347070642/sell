@@ -1,6 +1,8 @@
 package com.lpy.entity;
 
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -13,6 +15,8 @@ import java.math.BigDecimal;
  */
 @Entity
 @Data
+@DynamicInsert
+@DynamicUpdate
 public class OrderDetail {
 
     /** 订单详情id */
@@ -40,13 +44,4 @@ public class OrderDetail {
     public OrderDetail() {
     }
 
-    public OrderDetail(String detailId, String orderId, String productId, String productName, BigDecimal productPrice, Integer productQuantity, String productIcon) {
-        this.detailId = detailId;
-        this.orderId = orderId;
-        this.productId = productId;
-        this.productName = productName;
-        this.productPrice = productPrice;
-        this.productQuantity = productQuantity;
-        this.productIcon = productIcon;
-    }
 }

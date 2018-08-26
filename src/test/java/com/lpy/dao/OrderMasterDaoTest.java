@@ -33,9 +33,9 @@ public class OrderMasterDaoTest {
     @Test
     public void saveTest(){
         OrderMaster orderMaster = new OrderMaster();
-        orderMaster.setOrderId("1243");
+        orderMaster.setOrderId("12434");
         orderMaster.setBuyerName("张三");
-        orderMaster.setBuyerAddress("asdf");
+        orderMaster.setBuyerAddress("asdf1");
         orderMaster.setBuyerAmount(new BigDecimal(26));
         orderMaster.setBuyerOpenid(openId);
         orderMaster.setBuyerPhone("458756123");

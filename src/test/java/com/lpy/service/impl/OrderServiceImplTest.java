@@ -82,7 +82,7 @@ public class OrderServiceImplTest {
 
     @Test
     public void cancel() {
-        OrderDTO orderDTO = orderService.findOne(orderid);
+        OrderDTO orderDTO = orderService.findOne("1535214602337151039");
         OrderDTO result = orderService.cancel(orderDTO);
         Assert.assertEquals(OrderStatusEnum.CANCEL.getCode(),result.getBuyerStatus());
     }

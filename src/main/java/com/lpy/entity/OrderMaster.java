@@ -3,6 +3,7 @@ package com.lpy.entity;
 import com.lpy.enums.OrderStatusEnum;
 import com.lpy.enums.PayStatusEnum;
 import lombok.Data;
+import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.Entity;
@@ -17,6 +18,7 @@ import java.util.Date;
  */
 @Entity
 @Data
+@DynamicInsert
 @DynamicUpdate
 public class OrderMaster {
 
@@ -52,18 +54,5 @@ public class OrderMaster {
     private Date updateTime;
 
     public OrderMaster() {
-    }
-
-    public OrderMaster(String orderId, String buyerName, String buyerPhone, String buyerAddress, String buyerOpenid, BigDecimal buyerAmount, Integer buyerStatus, Integer payStatus, Date createTime, Date updateTime) {
-        this.orderId = orderId;
-        this.buyerName = buyerName;
-        this.buyerPhone = buyerPhone;
-        this.buyerAddress = buyerAddress;
-        this.buyerOpenid = buyerOpenid;
-        this.buyerAmount = buyerAmount;
-        this.buyerStatus = buyerStatus;
-        this.payStatus = payStatus;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
     }
 }

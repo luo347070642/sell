@@ -56,16 +56,4 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
-    public OrderDTO(String orderId, String buyerName, String buyerPhone, String buyerAddress, String buyerOpenid, BigDecimal buyerAmount, Integer buyerStatus, Integer payStatus, Date createTime, Date updateTime) {
-        this.orderId = orderId;
-        this.buyerName = buyerName;
-        this.buyerPhone = buyerPhone;
-        this.buyerAddress = buyerAddress;
-        this.buyerOpenid = buyerOpenid;
-        this.buyerAmount = buyerAmount;
-        this.buyerStatus = buyerStatus;
-        this.payStatus = payStatus;
-        this.createTime = createTime;
-        this.updateTime = updateTime;
-    }
 }
