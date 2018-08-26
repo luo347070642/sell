@@ -1,10 +1,9 @@
-package com.lpy.converter;
+package com.lpy.util.converter;
 
 import com.lpy.dto.OrderDTO;
 import com.lpy.entity.OrderMaster;
 import org.springframework.beans.BeanUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 

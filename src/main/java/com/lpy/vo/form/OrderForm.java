@@ -1,4 +1,4 @@
-package com.lpy.form;
+package com.lpy.vo.form;
 
 import lombok.Data;
 
