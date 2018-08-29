@@ -1,5 +1,6 @@
 package com.lpy.service.impl;
 
+import com.lpy.service.PayService;
 import com.lpy.util.converter.OrderMarster2OrderDTOConverter;
 import com.lpy.dao.OrderDetailDao;
 import com.lpy.dao.OrderMasterDao;
@@ -47,6 +48,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderMasterDao orderMasterDao;
+
+    @Autowired
+    private PayService payService;
 
     @Override
     @Transactional
@@ -156,7 +160,7 @@ public class OrderServiceImpl implements OrderService {
         productService.increaseStock(cartDTOList);
         // 4.如果已支付，需退款
         if (orderDTO.getPayStatus().equals(PayStatusEnum.SUCCESS)){
-            //TODO
+            payService.refund(orderDTO);
         }
         return orderDTO;
     }

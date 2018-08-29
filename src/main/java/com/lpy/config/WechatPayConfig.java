@@ -31,6 +31,7 @@ public class WechatPayConfig {
         wxPayH5Config.setMchId(wechatAccountConfig.getMchId());
         wxPayH5Config.setMchKey(wechatAccountConfig.getMchKey());
         wxPayH5Config.setKeyPath(wechatAccountConfig.getKeyPath());
+        wxPayH5Config.setNotifyUrl(wechatAccountConfig.getNotifyUrl());
         return wxPayH5Config;
     }
 }

@@ -1,5 +1,7 @@
 package com.lpy.service;
 
+import com.lly835.bestpay.model.PayResponse;
+import com.lly835.bestpay.model.RefundResponse;
 import com.lpy.dto.OrderDTO;
 
 /**
@@ -9,5 +11,23 @@ import com.lpy.dto.OrderDTO;
  */
 public interface PayService {
 
-    void create(OrderDTO orderDTO);
+    /**
+     * 发起支付，创建订单
+     * @param orderDTO
+     * @return
+     */
+    PayResponse create(OrderDTO orderDTO);
+
+    /**
+     * 微信异步通知
+     * @param nodiryData
+     * @return
+     */
+    PayResponse notify(String nodiryData);
+
+    /**
+     * 退款
+     * @param orderDTO
+     */
+    RefundResponse refund(OrderDTO orderDTO);
 }
