@@ -39,7 +39,12 @@ public class BuyerOrderController {
     @Autowired
     private BuyerService buyerService;
 
-    /** 创建订单 */
+    /**
+     * 创建订单
+     * @param orderForm
+     * @param bindingResult
+     * @return
+     */
     @PostMapping("/create")
     public ResultVo<Map<String,String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
@@ -57,7 +62,13 @@ public class BuyerOrderController {
         return ResultVoUtil.success(map);
     }
 
-    /** 订单列表 */
+    /**
+     * 订单列表
+     * @param openid
+     * @param page
+     * @param size
+     * @return
+     */
     @GetMapping("/list")
     public ResultVo<List<OrderDTO>> list(@RequestParam("openid") String openid,
                                          @RequestParam(value = "page",defaultValue = "0") Integer page,
@@ -70,14 +81,24 @@ public class BuyerOrderController {
         return ResultVoUtil.success(orderDTOPage.getContent());
     }
 
-    /** 订单详情 */
+    /**
+     * 订单详情
+     * @param openid
+     * @param orderId
+     * @return
+     */
     @GetMapping("/detail")
     public ResultVo<OrderDTO> detail(@RequestParam("openid") String openid,@RequestParam("orderId") String orderId){
         OrderDTO orderDTO = buyerService.findOrderOne(openid, orderId);
         return ResultVoUtil.success(orderDTO);
     }
 
-    /** 取消订单 */
+    /**
+     * 取消订单
+     * @param openid
+     * @param orderId
+     * @return
+     */
     @PostMapping("/cancel")
     public ResultVo<Map<String,String>> cancel(@RequestParam("openid") String openid,@RequestParam("orderId") String orderId){
         buyerService.cancelOrderOne(openid, orderId);

@@ -70,7 +70,7 @@ public class PayServiceImpl implements PayService {
         }
         //3.支付人（下单人==支付人） 看业务需求
         //4.修改订单支付状态
-        OrderDTO orderDTO1 = orderService.paid(orderDTO);
+        orderService.paid(orderDTO);
         return payResponse;
     }
 

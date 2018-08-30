@@ -2,7 +2,7 @@ package com.lpy.util;
 
 /**
  * @Author: 罗鹏远
- * @description:
+ * @description: 金额比较工具类
  * @Date: created in 20:24 2018/8/29
  */
 public class MathUtil {

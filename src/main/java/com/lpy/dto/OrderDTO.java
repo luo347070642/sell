@@ -1,8 +1,12 @@
 package com.lpy.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.lpy.entity.OrderDetail;
+import com.lpy.enums.OrderStatusEnum;
+import com.lpy.enums.PayStatusEnum;
+import com.lpy.util.EnumUtil;
 import com.lpy.util.serializer.Date2LongSerializer;
 import lombok.Data;
 
@@ -56,4 +60,13 @@ public class OrderDTO {
     public OrderDTO() {
     }
 
+    @JsonIgnore
+    public OrderStatusEnum getOrderStatusEnum(){
+        return EnumUtil.getByCode(buyerStatus,OrderStatusEnum.class);
+    }
+
+    @JsonIgnore
+    public PayStatusEnum getPayStatusEnum(){
+        return EnumUtil.getByCode(payStatus,PayStatusEnum.class);
+    }
 }
