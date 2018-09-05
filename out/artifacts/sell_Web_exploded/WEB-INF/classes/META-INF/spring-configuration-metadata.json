@@ -1,0 +1,48 @@
+{
+  "hints": [],
+  "groups": [
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat",
+      "type": "com.lpy.config.WechatAccountConfig"
+    }
+  ],
+  "properties": [
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.key-path",
+      "description": "商户证书路径",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.mch-id",
+      "description": "商户号",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.mch-key",
+      "description": "商户密钥",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.mp-app-id",
+      "description": "公众号appId",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.mp-app-secret",
+      "description": "公众号appSecret",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.notify-url",
+      "description": "微信支付异步通知地址",
+      "type": "java.lang.String"
+    }
+  ]
+}
