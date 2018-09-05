@@ -61,4 +61,19 @@ public class ProductInfoServiceImplTest {
         ProductInfo result = productInfoService.save(productInfo);
         Assert.assertNotNull(result);
     }
+    @Test
+    public void increaseStock() {
+    }
+
+    @Test
+    public void decreaseStock() {
+    }
+
+    @Test
+    public void onSale() {
+    }
+
+    @Test
+    public void offSale() {
+    }
 }

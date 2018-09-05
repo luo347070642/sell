@@ -19,7 +19,7 @@ import java.util.Map;
 
 /**
  * @Author: 罗鹏远
- * @description:
+ * @description: 卖家订单
  * @Date: created in 19:35 2018/8/30
  */
 @Controller
@@ -55,7 +55,7 @@ public class SellerOrderController {
      * @return
      */
     @GetMapping("/cancel")
-    public ModelAndView cancel(@RequestParam(value = "orderId",defaultValue = "1") String orderId,
+    public ModelAndView cancel(@RequestParam(value = "orderId") String orderId,
                              Map<String,Object> map){
         try {
             OrderDTO orderDTO = orderService.findOne(orderId);
@@ -67,6 +67,50 @@ public class SellerOrderController {
             return new ModelAndView("common/error",map);
         }
         map.put("msg",RequestEnum.ORDER_CANCEL_SUCCESS.getMsg());
+        map.put("url","/sell/seller/order/list");
+        return new ModelAndView("common/success",map);
+    }
+
+    /**
+     * 订单详情
+     * @param orderId
+     * @param map
+     * @return
+     */
+    @GetMapping("/detail")
+    public ModelAndView detail(@RequestParam(value = "orderId") String orderId,
+                               Map<String,Object> map){
+        try {
+            OrderDTO orderDTO = orderService.findOne(orderId);
+            map.put("orderDTO",orderDTO);
+        } catch (SellException e) {
+            log.error("【卖家端查询订单详情】，发生异常{}",e);
+            map.put("msg",e.getMessage());
+            map.put("url","/sell/seller/order/list");
+            return new ModelAndView("common/error",map);
+        }
+        return new ModelAndView("order/detail",map);
+    }
+
+    /**
+     * 完结订单
+     * @param orderId
+     * @param map
+     * @return
+     */
+    @GetMapping("/finish")
+    public ModelAndView finish(@RequestParam(value = "orderId") String orderId,
+                       Map<String,Object> map){
+        try {
+            OrderDTO orderDTO = orderService.findOne(orderId);
+            orderService.finish(orderDTO);
+        } catch (SellException e) {
+            log.error("【卖家端完结订单】，发生异常{}",e);
+            map.put("msg",e.getMessage());
+            map.put("url","/sell/seller/order/list");
+            return new ModelAndView("common/error",map);
+        }
+        map.put("msg",RequestEnum.ORDER_FINISH_SUCCESS.getMsg());
         map.put("url","/sell/seller/order/list");
         return new ModelAndView("common/success",map);
     }

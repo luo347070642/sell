@@ -8,16 +8,16 @@ import lombok.Getter;
  * @Date: created in 19:46 2018/8/15
  */
 @Getter
-public enum ProductStatusEnum {
+public enum ProductStatusEnum implements CodeEnum {
     UP(0,"在架"),
     DOWN(1,"下架")
     ;
 
     private Integer code;
-    private String message;
+    private String msg;
 
-    ProductStatusEnum(Integer code, String message) {
+    ProductStatusEnum(Integer code, String msg) {
         this.code = code;
-        this.message = message;
+        this.msg = msg;
     }
 }
