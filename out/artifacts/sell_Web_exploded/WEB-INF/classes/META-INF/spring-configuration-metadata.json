@@ -78,6 +78,11 @@
       "name": "wechat.open-app-secret",
       "description": "开放平台密钥",
       "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.template-id",
+      "type": "java.util.Map<java.lang.String,java.lang.String>"
     }
   ]
 }

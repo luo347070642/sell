@@ -1,7 +1,9 @@
 package com.lpy.handler;
 
 import com.lpy.config.ProjectUrlConfig;
+import com.lpy.exception.SellException;
 import com.lpy.exception.SellerAuthorizeException;
+import com.lpy.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -26,5 +28,10 @@ public class SellExceptionHandler {
         .concat("?returnUrl=")
         .concat(projectUrlConfig.getSell())
         .concat("/sell/seller/login"));
+    }
+
+    @ExceptionHandler(value = SellException.class)
+    public ResultVo handlerSellException(){
+        return null;
     }
 }
