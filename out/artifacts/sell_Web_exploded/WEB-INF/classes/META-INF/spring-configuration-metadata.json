@@ -2,12 +2,35 @@
   "hints": [],
   "groups": [
     {
+      "sourceType": "com.lpy.config.ProjectUrlConfig",
+      "name": "project-url",
+      "type": "com.lpy.config.ProjectUrlConfig"
+    },
+    {
       "sourceType": "com.lpy.config.WechatAccountConfig",
       "name": "wechat",
       "type": "com.lpy.config.WechatAccountConfig"
     }
   ],
   "properties": [
+    {
+      "sourceType": "com.lpy.config.ProjectUrlConfig",
+      "name": "project-url.sell",
+      "description": "点餐系统",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.ProjectUrlConfig",
+      "name": "project-url.wechat-mp-authorize",
+      "description": "微信公众平台授权url",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.ProjectUrlConfig",
+      "name": "project-url.wechat-open-authorize",
+      "description": "微信开放平台授权url",
+      "type": "java.lang.String"
+    },
     {
       "sourceType": "com.lpy.config.WechatAccountConfig",
       "name": "wechat.key-path",
@@ -42,6 +65,18 @@
       "sourceType": "com.lpy.config.WechatAccountConfig",
       "name": "wechat.notify-url",
       "description": "微信支付异步通知地址",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.open-app-id",
+      "description": "开放平台id",
+      "type": "java.lang.String"
+    },
+    {
+      "sourceType": "com.lpy.config.WechatAccountConfig",
+      "name": "wechat.open-app-secret",
+      "description": "开放平台密钥",
       "type": "java.lang.String"
     }
   ]

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "wechat")
+@ConfigurationProperties(prefix = "wechat")  //读取yml文件自定义字段信息
 public class WechatAccountConfig {
 
     /**
@@ -24,6 +24,16 @@ public class WechatAccountConfig {
      * 公众号appSecret
      */
     private String mpAppSecret;
+
+    /**
+     * 开放平台id
+     */
+    private String openAppId;
+
+    /**
+     * 开放平台密钥
+     */
+    private String openAppSecret;
 
     /**
      * 商户号

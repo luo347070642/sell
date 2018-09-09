@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class WechatPayConfig {
 
     @Autowired
-    private WechatAccountConfig wechatAccountConfig;
+    private WechatAccountConfig accountConfig;
 
     @Bean
     public BestPayServiceImpl bestPayService(){
@@ -27,11 +27,11 @@ public class WechatPayConfig {
     @Bean
     public WxPayH5Config wxPayH5Config(){
         WxPayH5Config wxPayH5Config = new WxPayH5Config();
-        wxPayH5Config.setAppId(wechatAccountConfig.getMpAppId());
-        wxPayH5Config.setMchId(wechatAccountConfig.getMchId());
-        wxPayH5Config.setMchKey(wechatAccountConfig.getMchKey());
-        wxPayH5Config.setKeyPath(wechatAccountConfig.getKeyPath());
-        wxPayH5Config.setNotifyUrl(wechatAccountConfig.getNotifyUrl());
+        wxPayH5Config.setAppId(accountConfig.getMpAppId());
+        wxPayH5Config.setMchId(accountConfig.getMchId());
+        wxPayH5Config.setMchKey(accountConfig.getMchKey());
+        wxPayH5Config.setKeyPath(accountConfig.getKeyPath());
+        wxPayH5Config.setNotifyUrl(accountConfig.getNotifyUrl());
         return wxPayH5Config;
     }
 }
