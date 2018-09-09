@@ -1,6 +1,6 @@
 package com.lpy.service.impl;
 
-import com.lpy.service.PayService;
+import com.lpy.service.*;
 import com.lpy.util.converter.OrderMarster2OrderDTOConverter;
 import com.lpy.dao.OrderDetailDao;
 import com.lpy.dao.OrderMasterDao;
@@ -13,8 +13,6 @@ import com.lpy.enums.OrderStatusEnum;
 import com.lpy.enums.PayStatusEnum;
 import com.lpy.enums.RequestEnum;
 import com.lpy.exception.SellException;
-import com.lpy.service.OrderService;
-import com.lpy.service.ProductService;
 import com.lpy.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -52,6 +50,12 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private PayService payService;
 
+    @Autowired
+    private PushMessageService pushMessageService;
+
+    @Autowired
+    private WebSocket webSocket;
+
     @Override
     @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
@@ -86,6 +90,8 @@ public class OrderServiceImpl implements OrderService {
                 new CartDTO(e.getProductId(),e.getProductQuantity())
         ).collect(Collectors.toList());
         productService.decreaseStock(cartDTOList);
+        //websocket消息推送
+        webSocket.sendMessage("有新的订单");
         return orderDTO;
     }
 
@@ -129,6 +135,8 @@ public class OrderServiceImpl implements OrderService {
             log.error("【完结订单】 更新失败，orderMaster={}",updateResult);
             throw new SellException(RequestEnum.ORDER_UPDATE_FAIL);
         }
+        //推送微信模板消息
+        pushMessageService.orderStatus(orderDTO);
         return orderDTO;
     }
 

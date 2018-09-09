@@ -69,12 +69,56 @@
         </div>
     </div>
 </div>
-</body>
+<div class="modal fade" id="myModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title" id="myModalLabel">
+                    提醒
+                </h4>
+            </div>
+            <div class="modal-body">
+                你有新的订单
+            </div>
+            <div class="modal-footer">
+                <button onclick="document.getElementById('notice').pause();" type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                <button onclick="location.reload()" type="button" class="btn btn-primary">查看新的订单</button>
+            </div>
+        </div>
+    </div>
+</div>
+<audio id="notice" loop="loop">
+    <source src="/sell/mp3/song.mp3" type="audio/mpeg">
+</audio>
 <script>
     function cancel(orderId) {
         location.href="/sell/seller/order/cancel?orderId="+orderId;
     }
+    var oWebsocket = null;
+    if("WebSocket" in window){
+        oWebsocket = new WebSocket("ws://birdsell.mynatapp.cc/sell/webSocket");
+    }else{
+        alert("该浏览器不支持WebSocket");
+    }
+    oWebsocket.onopen = function (event) {
+        console.info("建立连接");
+    }
+    oWebsocket.onclose = function (event) {
+        console.info("关闭连接");
+    }
+    oWebsocket.onmessage = function (event) {
+        console.info("收到消息:"+event.data);
+        //弹框提醒、播放音乐
+        $("#myModal").modal("show");
+        document.getElementById("notice").play();
+    }
+    oWebsocket.onerror = function () {
+        alert("WebSocket通讯发生错误")
+    }
+    window.onbeforeunload = function () {
+        oWebsocket.close();
+    }
 </script>
+</body>
 </html>
-
-

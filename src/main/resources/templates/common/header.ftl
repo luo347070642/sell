@@ -7,4 +7,6 @@
     <link rel="stylesheet" href="/sell/bootstrap-3.3.7/css/bootstrap.css">
     <link rel="stylesheet" href="/sell/css/style.css">
     <link rel="stylesheet" href="/sell/bootstrap-3.3.7/css/fileinput.min.css" media="all" type="text/css" />
+    <script src="/sell/js/jquery-3.3.1.min.js"></script>
+    <script src="/sell/bootstrap-3.3.7/js/bootstrap.min.js"></script>
 </head>
