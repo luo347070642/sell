@@ -4,7 +4,7 @@ import com.lpy.config.ProjectUrlConfig;
 import com.lpy.constant.CookieConstant;
 import com.lpy.constant.RedisConstant;
 import com.lpy.entity.SellerInfo;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.service.SellerInfoService;
 import com.lpy.util.CookieUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -55,7 +55,7 @@ public class SellerUserController {
         //1.根据openid查询用户是否存在
         SellerInfo sellerInfo = sellerInfoService.findByOpenid(openid);
         if(sellerInfo == null){
-            map.put("msg",RequestEnum.LOGIN_FAIL.getMsg());
+            map.put("msg",ResultEnum.LOGIN_FAIL.getMsg());
             map.put("url","/sell/seller/order/list");
             return new ModelAndView("common/error",map);
         }
@@ -87,7 +87,7 @@ public class SellerUserController {
             //3.清除cookie
             CookieUtil.set(response,CookieConstant.TOKEN,null,0);
         }
-        map.put("msg",RequestEnum.LOGOUT_SUCCESS.getMsg());
+        map.put("msg",ResultEnum.LOGOUT_SUCCESS.getMsg());
         map.put("url","/sell/seller/order/list");
         return new ModelAndView("common/success",map);
     }

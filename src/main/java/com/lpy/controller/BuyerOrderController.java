@@ -2,7 +2,7 @@ package com.lpy.controller;
 
 import com.lpy.util.converter.OrderForm2OrderDTOConverter;
 import com.lpy.dto.OrderDTO;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.vo.form.OrderForm;
 import com.lpy.service.BuyerService;
@@ -49,12 +49,12 @@ public class BuyerOrderController {
     public ResultVo<Map<String,String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             log.error("【创建订单】 参数不正确，orderForm={}",orderForm);
-            throw new SellException(RequestEnum.PARAM_ERROR.getCode(),bindingResult.getFieldError().getDefaultMessage());
+            throw new SellException(ResultEnum.PARAM_ERROR.getCode(),bindingResult.getFieldError().getDefaultMessage());
         }
         OrderDTO orderDTO = OrderForm2OrderDTOConverter.convert(orderForm);
         if (CollectionUtils.isEmpty(orderDTO.getOrderDetailList())) {
             log.error("【创建订单】 购物车不能为空");
-            throw new SellException(RequestEnum.CART_EMPTY);
+            throw new SellException(ResultEnum.CART_EMPTY);
         }
         OrderDTO createResult = orderService.create(orderDTO);
         Map<String,String> map = new HashMap<String,String>();
@@ -75,7 +75,7 @@ public class BuyerOrderController {
                                          @RequestParam(value = "size",defaultValue = "10") Integer size){
         if(StringUtils.isEmpty(openid)){
             log.error("【查询订单列表】 openid为空，openid={}",openid);
-            throw new SellException(RequestEnum.PARAM_ERROR);
+            throw new SellException(ResultEnum.PARAM_ERROR);
         }
         Page<OrderDTO> orderDTOPage = orderService.findList(openid,PageRequest.of(page,size));
         return ResultVoUtil.success(orderDTOPage.getContent());

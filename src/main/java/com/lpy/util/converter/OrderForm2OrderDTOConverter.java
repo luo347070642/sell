@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.lpy.dto.OrderDTO;
 import com.lpy.entity.OrderDetail;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.vo.form.OrderForm;
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class OrderForm2OrderDTOConverter {
             return orderDTO;
         }catch (Exception e){
             log.error("【对象转换】 错误，string={}",orderForm.getItems());
-            throw new SellException(RequestEnum.PARAM_ERROR);
+            throw new SellException(ResultEnum.PARAM_ERROR);
         }
     }
 }

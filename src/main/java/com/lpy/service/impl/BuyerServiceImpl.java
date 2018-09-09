@@ -1,7 +1,7 @@
 package com.lpy.service.impl;
 
 import com.lpy.dto.OrderDTO;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.service.BuyerService;
 import com.lpy.service.OrderService;
@@ -31,7 +31,7 @@ public class BuyerServiceImpl implements BuyerService {
         OrderDTO orderDTO = checkOrderOwner(openid, orderId);
         if(orderDTO == null){
             log.error("【取消订单】 查不到该订单，orderId={}",orderId);
-            throw new SellException(RequestEnum.ORDER_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         return orderService.cancel(orderDTO);
     }
@@ -43,7 +43,7 @@ public class BuyerServiceImpl implements BuyerService {
         }
         if (orderDTO.getBuyerOpenid().equals(openid)){
             log.error("【查询订单】 订单中的openid不一致，openid={},orderDTO={}",openid,orderDTO);
-            throw new SellException(RequestEnum.ORDER_OWNER_ERROR);
+            throw new SellException(ResultEnum.ORDER_OWNER_ERROR);
         }
         return orderDTO;
     }

@@ -8,7 +8,7 @@ import lombok.Getter;
  * @Date: created in 22:24 2018/8/16
  */
 @Getter
-public enum RequestEnum {
+public enum ResultEnum {
     PARAM_ERROR(1,"参数不正确"),
 
     PRODUCT_NOT_EXIST(10,"商品不存在"),
@@ -48,7 +48,7 @@ public enum RequestEnum {
     private Integer code;
     private String msg;
 
-    RequestEnum(Integer code, String msg) {
+    ResultEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

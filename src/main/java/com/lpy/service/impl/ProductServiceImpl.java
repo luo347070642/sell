@@ -4,7 +4,7 @@ import com.lpy.dao.ProductInfoDao;
 import com.lpy.dto.CartDTO;
 import com.lpy.entity.ProductInfo;
 import com.lpy.enums.ProductStatusEnum;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @Author: 罗鹏远
@@ -55,7 +54,7 @@ public class ProductServiceImpl implements ProductService {
             ProductInfo productInfo = productInfoDao.findById(cartDTO.getProductId()).orElse(null);
             if(productInfo == null){
                 log.error("【加库存】 商品不存在，productInfo={}",productInfo);
-                throw new SellException(RequestEnum.PRODUCT_NOT_EXIST);
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             Integer stock = productInfo.getProductStock() + cartDTO.getProductQuantity();
             productInfo.setProductStock(stock);
@@ -70,12 +69,12 @@ public class ProductServiceImpl implements ProductService {
             ProductInfo productInfo = productInfoDao.findById(cartDTO.getProductId()).orElse(null);
             if(productInfo == null){
                 log.error("【减库存】 商品不存在，productInfo={}",productInfo);
-                throw new SellException(RequestEnum.PRODUCT_NOT_EXIST);
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             Integer stock = productInfo.getProductStock() - cartDTO.getProductQuantity();
             if(stock < 0){
                 log.error("库存不足，productStock={},productQuantity={}",productInfo.getProductStock(),cartDTO.getProductQuantity());
-                throw new SellException(RequestEnum.PRODUCT_STOCK_ERROR);
+                throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
             productInfo.setProductStock(stock);
             productInfoDao.save(productInfo);
@@ -86,10 +85,10 @@ public class ProductServiceImpl implements ProductService {
     public ProductInfo onSale(String productId) {
         ProductInfo productInfo = productInfoDao.findById(productId).orElse(null);
         if(productInfo == null){
-            throw new SellException(RequestEnum.PRODUCT_NOT_EXIST);
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
         }
         if(productInfo.getProductStatusEnum() == ProductStatusEnum.UP){
-            throw new SellException(RequestEnum.PRODUCT_STATUS_ERROR);
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
         }
         //更新
         productInfo.setProductStatus(ProductStatusEnum.UP.getCode());
@@ -100,10 +99,10 @@ public class ProductServiceImpl implements ProductService {
     public ProductInfo offSale(String productId) {
         ProductInfo productInfo = productInfoDao.findById(productId).orElse(null);
         if(productInfo == null){
-            throw new SellException(RequestEnum.PRODUCT_NOT_EXIST);
+            throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
         }
         if(productInfo.getProductStatusEnum() == ProductStatusEnum.DOWN){
-            throw new SellException(RequestEnum.PRODUCT_STATUS_ERROR);
+            throw new SellException(ResultEnum.PRODUCT_STATUS_ERROR);
         }
         //更新
         productInfo.setProductStatus(ProductStatusEnum.DOWN.getCode());

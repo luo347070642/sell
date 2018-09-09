@@ -2,7 +2,7 @@ package com.lpy.controller;
 
 import com.lly835.bestpay.model.PayResponse;
 import com.lpy.dto.OrderDTO;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.service.OrderService;
 import com.lpy.service.PayService;
@@ -43,7 +43,7 @@ public class PayController {
                                Map<String ,Object> map){
         OrderDTO orderDTO = orderService.findOne(orderId);
         if(orderDTO == null){
-            throw new SellException(RequestEnum.ORDER_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         PayResponse payResponse = payService.create(orderDTO);
         map.put("payResponse",payResponse);

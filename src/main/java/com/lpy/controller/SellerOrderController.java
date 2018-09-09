@@ -1,7 +1,7 @@
 package com.lpy.controller;
 
 import com.lpy.dto.OrderDTO;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.service.OrderService;
 import com.lpy.util.PageUtil;
@@ -66,7 +66,7 @@ public class SellerOrderController {
             map.put("url","/sell/seller/order/list");
             return new ModelAndView("common/error",map);
         }
-        map.put("msg",RequestEnum.ORDER_CANCEL_SUCCESS.getMsg());
+        map.put("msg",ResultEnum.ORDER_CANCEL_SUCCESS.getMsg());
         map.put("url","/sell/seller/order/list");
         return new ModelAndView("common/success",map);
     }
@@ -110,7 +110,7 @@ public class SellerOrderController {
             map.put("url","/sell/seller/order/list");
             return new ModelAndView("common/error",map);
         }
-        map.put("msg",RequestEnum.ORDER_FINISH_SUCCESS.getMsg());
+        map.put("msg",ResultEnum.ORDER_FINISH_SUCCESS.getMsg());
         map.put("url","/sell/seller/order/list");
         return new ModelAndView("common/success",map);
     }

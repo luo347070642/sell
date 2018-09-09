@@ -11,7 +11,7 @@ import com.lpy.entity.OrderMaster;
 import com.lpy.entity.ProductInfo;
 import com.lpy.enums.OrderStatusEnum;
 import com.lpy.enums.PayStatusEnum;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import com.lpy.util.KeyUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
         for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
             ProductInfo productInfo = productService.findOne(orderDetail.getProductId());
             if(productInfo == null){
-                throw new SellException(RequestEnum.PRODUCT_NOT_EXIST);
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             // 2.计算订单总价 注意商品价格必须用数据库查出来的价格
             orderAmount = productInfo.getProductPrice()
@@ -99,11 +99,11 @@ public class OrderServiceImpl implements OrderService {
     public OrderDTO findOne(String orderId) {
         OrderMaster orderMaster = orderMasterDao.findById(orderId).orElse(null);
         if(orderMaster == null){
-            throw new SellException(RequestEnum.ORDER_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
         }
         List<OrderDetail> orderDetailList = orderDetailDao.findByOrderId(orderId);
         if(orderDetailList == null){
-            throw new SellException(RequestEnum.ORDER_DETAIL_NOT_EXIST);
+            throw new SellException(ResultEnum.ORDER_DETAIL_NOT_EXIST);
         }
         OrderDTO orderDTO = new OrderDTO();
         BeanUtils.copyProperties(orderMaster,orderDTO);
@@ -124,7 +124,7 @@ public class OrderServiceImpl implements OrderService {
         // 1.判断订单状态
         if (!orderDTO.getBuyerStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【完结订单】 订单状态不正确，orderId={},buyerStatus={}",orderDTO.getOrderId(),orderDTO.getBuyerStatus());
-            throw new SellException(RequestEnum.ORDER_STATUS_ERROR);
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
         // 2.修改状态
         orderDTO.setBuyerStatus(OrderStatusEnum.FINISHED.getCode());
@@ -133,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster updateResult = orderMasterDao.save(orderMaster);
         if(updateResult == null){
             log.error("【完结订单】 更新失败，orderMaster={}",updateResult);
-            throw new SellException(RequestEnum.ORDER_UPDATE_FAIL);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
         //推送微信模板消息
         pushMessageService.orderStatus(orderDTO);
@@ -147,7 +147,7 @@ public class OrderServiceImpl implements OrderService {
         // 1.判断订单状态
         if (!orderDTO.getBuyerStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【取消订单】 订单状态不正确，orderId={},buyerStatus={}",orderDTO.getOrderId(),orderDTO.getBuyerStatus());
-            throw new SellException(RequestEnum.ORDER_STATUS_ERROR);
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
         // 2.更改订单状态
         orderDTO.setBuyerStatus(OrderStatusEnum.CANCEL.getCode());
@@ -155,12 +155,12 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster updateResult = orderMasterDao.save(orderMaster);
         if(updateResult == null){
             log.error("【取消订单】 更新失败，orderMaster={}",updateResult);
-            throw new SellException(RequestEnum.ORDER_UPDATE_FAIL);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
         // 3.返回库存
         if(CollectionUtils.isEmpty(orderDTO.getOrderDetailList())){
             log.error("【取消订单】 订单中无商品详情，orderDTO={}",orderDTO);
-            throw new SellException(RequestEnum.ORDER_DETAIL_EMPTY);
+            throw new SellException(ResultEnum.ORDER_DETAIL_EMPTY);
         }
         List<CartDTO> cartDTOList = orderDTO.getOrderDetailList().stream().map(e ->
                 new CartDTO(e.getProductId(),e.getProductQuantity())
@@ -179,12 +179,12 @@ public class OrderServiceImpl implements OrderService {
         // 1.判断订单状态
         if (!orderDTO.getBuyerStatus().equals(OrderStatusEnum.NEW.getCode())){
             log.error("【支付订单】 订单状态不正确，orderId={},buyerStatus={}",orderDTO.getOrderId(),orderDTO.getBuyerStatus());
-            throw new SellException(RequestEnum.ORDER_STATUS_ERROR);
+            throw new SellException(ResultEnum.ORDER_STATUS_ERROR);
         }
         // 2.判断支付状态
         if (!orderDTO.getPayStatus().equals(PayStatusEnum.WAIT.getCode())) {
             log.error("【支付订单】 订单支付状态不正确，orderDTO={}",orderDTO);
-            throw new SellException(RequestEnum.ORDER_PAY_STATUS_ERROR);
+            throw new SellException(ResultEnum.ORDER_PAY_STATUS_ERROR);
         }
         // 3.更改支付状态
         orderDTO.setPayStatus(PayStatusEnum.SUCCESS.getCode());
@@ -193,7 +193,7 @@ public class OrderServiceImpl implements OrderService {
         OrderMaster updateResult = orderMasterDao.save(orderMaster);
         if(updateResult == null){
             log.error("【支付订单】 更新失败，orderMaster={}",updateResult);
-            throw new SellException(RequestEnum.ORDER_UPDATE_FAIL);
+            throw new SellException(ResultEnum.ORDER_UPDATE_FAIL);
         }
         return orderDTO;
     }

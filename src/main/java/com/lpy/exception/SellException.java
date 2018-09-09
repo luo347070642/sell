@@ -1,6 +1,6 @@
 package com.lpy.exception;
 
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 
 /**
  * @Author: 罗鹏远
@@ -11,9 +11,9 @@ public class SellException extends RuntimeException {
 
     private Integer code;
 
-    public SellException(RequestEnum requestEnum) {
-        super(requestEnum.getMsg());
-        this.code=requestEnum.getCode();
+    public SellException(ResultEnum resultEnum) {
+        super(resultEnum.getMsg());
+        this.code= resultEnum.getCode();
     }
 
     public SellException(Integer code, String msg) {

@@ -1,7 +1,7 @@
 package com.lpy.controller;
 
 import com.lpy.config.ProjectUrlConfig;
-import com.lpy.enums.RequestEnum;
+import com.lpy.enums.ResultEnum;
 import com.lpy.exception.SellException;
 import lombok.extern.slf4j.Slf4j;
 import me.chanjar.weixin.common.api.WxConsts;
@@ -62,7 +62,7 @@ public class WechatController {
             wxMpOAuth2AccessToken = wxMpService.oauth2getAccessToken(code);
         } catch (WxErrorException e) {
             log.error("【微信网页授权】,{}",e);
-            throw new SellException(RequestEnum.WECHAT_MP_ERROR.getCode(),e.getError().getErrorMsg());
+            throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(),e.getError().getErrorMsg());
         }
         String openId = wxMpOAuth2AccessToken.getOpenId();
         return "redirect:"+returnUrl+"?openid="+openId;
@@ -84,7 +84,7 @@ public class WechatController {
             wxMpOAuth2AccessToken = wxOpenService.oauth2getAccessToken(code);
         } catch (WxErrorException e) {
             log.error("【微信网页授权】{}", e);
-            throw new SellException(RequestEnum.WECHAT_MP_ERROR.getCode(), e.getError().getErrorMsg());
+            throw new SellException(ResultEnum.WECHAT_MP_ERROR.getCode(), e.getError().getErrorMsg());
         }
         log.info("wxMpOAuth2AccessToken={}", wxMpOAuth2AccessToken);
         String openId = wxMpOAuth2AccessToken.getOpenId();
