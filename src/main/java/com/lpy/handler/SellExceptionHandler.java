@@ -1,12 +1,14 @@
 package com.lpy.handler;
 
 import com.lpy.config.ProjectUrlConfig;
+import com.lpy.exception.ResponseBankException;
 import com.lpy.exception.SellException;
 import com.lpy.exception.SellerAuthorizeException;
+import com.lpy.util.ResultVoUtil;
 import com.lpy.vo.ResultVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -31,7 +33,17 @@ public class SellExceptionHandler {
     }
 
     @ExceptionHandler(value = SellException.class)
-    public ResultVo handlerSellException(){
-        return null;
+    @ResponseBody
+    public ResultVo handlerSellException(SellException e){
+        return ResultVoUtil.error(e.getCode(),e.getMessage());
+    }
+
+    /**
+     * 更改http响应状态
+     */
+    @ExceptionHandler(value = ResponseBankException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public void handleResponseBankException() {
+
     }
 }

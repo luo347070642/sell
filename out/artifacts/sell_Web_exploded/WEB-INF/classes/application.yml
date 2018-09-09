@@ -53,3 +53,8 @@ project-url:
   wechatMpAuthorize: http://birdsell.mynatapp.cc
   wechatOpenAuthorize: http://birdsell.mynatapp.cc
   sell: http://birdsell.mynatapp.cc
+logging:
+  level:
+    com.lpy.entity.mapper: trace
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
