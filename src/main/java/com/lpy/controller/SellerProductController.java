@@ -11,6 +11,8 @@ import com.lpy.vo.form.ProductForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
@@ -119,6 +121,8 @@ public class SellerProductController {
     }
 
     @PostMapping("/save")
+//    @CachePut(cacheNames = "product", key = "123") //更新redis缓存 使用前提：缓存数据格式要一致
+    @CacheEvict(cacheNames = "product", key = "123") //清除redis缓存
     public ModelAndView save(@Valid ProductForm productForm, BindingResult bindingResult, Map<String, Object> map){
         if(bindingResult.hasErrors()){
             map.put("msg",bindingResult.getFieldError().getDefaultMessage());

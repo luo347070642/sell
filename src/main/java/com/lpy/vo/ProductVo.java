@@ -3,6 +3,7 @@ package com.lpy.vo;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -11,7 +12,9 @@ import java.util.List;
  * @Date: created in 20:52 2018/8/15
  */
 @Data
-public class ProductVo<T> {
+public class ProductVo<T> implements Serializable {
+
+    private static final long serialVersionUID = 8942749810195042499L;
 
     @JsonProperty("name")
     private String categoryName;
